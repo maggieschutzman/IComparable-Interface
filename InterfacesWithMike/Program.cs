@@ -8,7 +8,10 @@ namespace InterfacesWithMike {
             p1.VendorID = 123;
             p1.CreditLimit = 1000m;
             p1.Address = "30303 A St.";
-            PrintLabel(p1);
+            IPrintLabel(p1);
+
+            Customer c1 = new Customer();
+            IPrintLabel(c1);
 
             Partner p2 = new Partner();
             p2.VendorID = 123;
@@ -23,13 +26,13 @@ namespace InterfacesWithMike {
                  }
             }
 
-        static void PrintLabel(Partner theAddressObject) {
+        static void IPrintLabel(Partner theAddressObject) {
             Console.WriteLine(theAddressObject.Name + " " +theAddressObject.Address);
             }
         }
     }
 
-    interface IVendor{
+    interface IVendor {
 
         int VendorID { get; set; }
         string Name { get; set; }
@@ -39,12 +42,20 @@ namespace InterfacesWithMike {
             //Events
         }
 
-    class Customer {
-            int CustomerId { get; set; }
-            string Name { get; set; }
+    interface IPrintLabel {
+       
+        string Name { get; set; }
+        string Address { get; set; }
+    }
+
+    
+    class Customer : IPrintLabel {
+    public string Address { get; set; }
+    public int CustomerId { get; set; }
+    public string Name { get; set; }
+    string IPrintLabel.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 }
-
 
     class Partner : IVendor, IComparable {
         public int VendorID { get; set; }
@@ -80,4 +91,5 @@ namespace InterfacesWithMike {
     class BankAccount {
         public int fred;
     }
+
 
